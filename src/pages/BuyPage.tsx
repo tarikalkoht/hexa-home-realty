@@ -74,7 +74,7 @@ const BuyPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
             {allProperties.map((property) => (
-              <div key={property.id} className="flex flex-col sm:flex-row bg-card border border-border rounded-lg overflow-hidden card-hover">
+              <Link to={`/property/${property.id}`} key={property.id} className="flex flex-col sm:flex-row bg-card border border-border rounded-lg overflow-hidden card-hover">
                 <div className="sm:w-[300px] h-52 sm:h-auto relative flex-shrink-0">
                   <img src={property.image} alt={property.title} className="w-full h-full object-cover" />
                   <button className="absolute top-3 right-3 w-8 h-8 bg-background/80 rounded-full flex items-center justify-center">
@@ -100,7 +100,7 @@ const BuyPage = () => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
