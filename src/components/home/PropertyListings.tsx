@@ -1,84 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Bed, Bath, Maximize, Heart, Mail, Phone } from "lucide-react";
-import property1 from "@/assets/property-1.jpg";
-import property2 from "@/assets/property-2.jpg";
-import property3 from "@/assets/property-3.jpg";
-
-const properties = [
-  {
-    id: 1,
-    image: property1,
-    price: "USD 816,771",
-    title: "High Floor | Partial Sea View | High ROI",
-    location: "Palace Beach Residence, Emaar Beachfront, Dubai",
-    type: "Apartment",
-    beds: 1,
-    baths: 1,
-    area: "728 sq ft",
-    category: "sale",
-  },
-  {
-    id: 2,
-    image: property2,
-    price: "USD 2,450,000",
-    title: "Panoramic Skyline Views | Private Pool | Luxury Living",
-    location: "Downtown Dubai, Burj Khalifa District",
-    type: "Penthouse",
-    beds: 3,
-    baths: 4,
-    area: "3,200 sq ft",
-    category: "sale",
-  },
-  {
-    id: 3,
-    image: property3,
-    price: "USD 5,890,000",
-    title: "Waterfront Villa | Private Beach | Smart Home",
-    location: "Palm Jumeirah, Dubai",
-    type: "Villa",
-    beds: 5,
-    baths: 6,
-    area: "7,345 sq ft",
-    category: "sale",
-  },
-  {
-    id: 4,
-    image: property1,
-    price: "USD 95,000/yr",
-    title: "Fully Furnished | Marina View | Modern Design",
-    location: "Dubai Marina, Dubai",
-    type: "Apartment",
-    beds: 2,
-    baths: 2,
-    area: "1,200 sq ft",
-    category: "rent",
-  },
-  {
-    id: 5,
-    image: property2,
-    price: "USD 208,276",
-    title: "Stylish Residences in a Vibrant Community",
-    location: "Binghatti Etherea, Jumeirah Village Circle",
-    type: "Apartment",
-    beds: 0,
-    baths: 1,
-    area: "336 sq ft",
-    category: "offplan",
-  },
-  {
-    id: 6,
-    image: property3,
-    price: "USD 1,200,000",
-    title: "Modern Townhouse | Garden View | Family Living",
-    location: "Dubai Hills Estate, Dubai",
-    type: "Townhouse",
-    beds: 3,
-    baths: 3,
-    area: "2,100 sq ft",
-    category: "offplan",
-  },
-];
+import { properties } from "@/data/properties";
 
 const PropertyListings = () => {
   const [activeTab, setActiveTab] = useState<"sale" | "rent" | "offplan">("sale");
@@ -118,10 +41,10 @@ const PropertyListings = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((property) => (
-            <div key={property.id} className="group bg-card rounded-lg overflow-hidden border border-border card-hover">
+            <Link to={`/property/${property.id}`} key={property.id} className="group bg-card rounded-lg overflow-hidden border border-border card-hover block">
               <div className="relative h-56 overflow-hidden">
                 <img
-                  src={property.image}
+                  src={property.images[0]}
                   alt={property.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -148,7 +71,7 @@ const PropertyListings = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
