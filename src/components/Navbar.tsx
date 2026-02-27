@@ -163,6 +163,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -171,6 +172,14 @@ const Navbar = () => {
     setMobileOpen(false);
     setActiveDropdown(null);
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (!isHome) return;
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHome]);
 
   const handleMouseEnter = (label: string) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -183,8 +192,12 @@ const Navbar = () => {
     }, 150);
   };
 
+  const showSolid = !isHome || scrolled;
+
   return (
-    <header className={`w-full z-50 ${isHome ? "absolute top-0 left-0" : "bg-background border-b border-border"}`}>
+    <header className={`w-full z-50 transition-all duration-300 ${
+      isHome ? "fixed top-0 left-0" : "bg-background border-b border-border"
+    } ${isHome && scrolled ? "bg-primary shadow-lg" : ""} ${isHome && !scrolled ? "bg-transparent" : ""}`}>
       <div className="container-main flex items-center justify-between h-[72px]">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-0.5">
